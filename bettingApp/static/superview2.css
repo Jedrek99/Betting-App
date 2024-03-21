@@ -1,0 +1,56 @@
+/* Resetting default list styles and setting up the navigation */
+ul.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f6bdaa; /* Light peach color */
+}
+
+/* Styling individual navigation items */
+li.nav {
+    float: left;
+}
+
+/* Styling links within navigation items */
+li.nav a {
+    display: block;
+    color: #000; /* Black text color */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+/* Hover effect for navigation links */
+li.nav a:hover {
+    background-color: #eeec7d; /* Light yellow background color on hover */
+}
+
+/* Header styles */
+.header {
+    height: 40px; /* Increased height */
+    background-color: #f6bdaa; /* Light peach color */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center align items vertically */
+    padding: 20px; /* Increased padding */
+}
+
+/* Footer styles */
+.footer {
+    height: 100px;
+    text-align: center;
+    background-color: #f6bdaa; /* Light peach color */
+    line-height: 100px; /* Center content vertically */
+    margin-top: auto; /* Footer sticks to the bottom */
+}
+
+/* Main content container styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 200px); /* Fill remaining viewport height, accounting for header and footer */
+    background-color: rgba(213, 255, 205, 0.68); /* Light green background color */
+    padding: 40px 20px; /* Increased padding around the content */
+}

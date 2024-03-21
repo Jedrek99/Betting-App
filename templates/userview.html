@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if win_percentage is not None %}
+    <strong>Your win percentage:</strong> {{ win_percentage }}% <br>
+    {% else %}
+    <strong>No bets made yet!</strong>
+    {% endif %}
+    {% if win_percentage is not None %}
+    <strong>Your betting history:</strong>
+        <table border="1" width="600">
+        <tr>
+            <th width="20%" height="10px">Gametime</th>
+            <th width="20%" height="10px">League</th>
+            <th width="20%" height="10px">Home Team</th>
+            <th width="20%" height="10px">Away Team</th>
+            <th width="10%" height="10px">Your Bet</th>
+            <th width="10%" height="10px">Result</th>
+        </tr>
+        {% for bet in bets %}
+            {% if bet in won_bets %}
+            <tr background-color: green>
+                <td height="30px">{{ bet.game.gametime }}</td>
+                <td height="30px">{{ bet.game.league.name }}</td>
+                <td height="30px">{{ bet.game.homeTeam.name }}</td>
+                <td height="30px">{{ bet.game.awayTeam.name }}</td>
+                <td height="30px" align="center"><form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="game_id" value="{{ game.pk }}">
+                    {{ bet.score }}
+                </form></td>
+                <td height="30px" align="center"><strong>Won</strong></td>
+            </tr>
+            {% elif bet in lost_bets %}
+             <tr background-color: red>
+                <td height="30px">{{ bet.game.gametime }}</td>
+                <td height="30px">{{ bet.game.league.name }}</td>
+                <td height="30px">{{ bet.game.homeTeam.name }}</td>
+                <td height="30px">{{ bet.game.awayTeam.name }}</td>
+                <td height="30px" align="center"><form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="game_id" value="{{ game.pk }}">
+                    {{ bet.score }}
+                </form></td>
+             <td height="30px" align="center"><strong>Lost</strong></td>
+            </tr>
+            {% else %}
+            <tr>
+                <td height="30px">{{ bet.game.gametime }}</td>
+                <td height="30px">{{ bet.game.league.name }}</td>
+                <td height="30px">{{ bet.game.homeTeam.name }}</td>
+                <td height="30px">{{ bet.game.awayTeam.name }}</td>
+                <td height="30px" align="center"><form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="game_id" value="{{ game.pk }}">
+                    {{ bet.score }}
+                </form></td>
+                <td height="30px" align="center"><strong>No result yet</strong></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+{% endblock %}

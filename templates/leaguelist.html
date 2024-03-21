@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+    </form> <br>
+<ul>{% for country in countries %}
+    <strong><a href="{% url 'editcountry' country.pk %}">{{ country.name }}</a></strong><br>
+    {% for league in leagues %}
+    {% if league.country == country %}
+        <a href="{{ league.id }}"> <a href='{% url 'editleague' league.pk %}'>{{ league.name }} </a> <a href='{% url 'deleteleague' league.pk %}'><button>X</button></a> <br> <br>
+        {% endif %}
+    {% endfor %}
+    {% endfor %}
+</ul>
+{% endblock %}

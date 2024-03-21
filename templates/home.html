@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    {{ error }}
+    <br>
+    <strong>Filter by league:</strong>
+    <br>
+    <form method="post" style="display: inline;">
+    {% csrf_token %}
+    {{ form.league }}
+    <button type="submit">Submit</button>
+    </form> <br> <br>
+    <strong>Upcoming games:</strong> <br>
+    <table border="1" width="600">
+        <tr>
+            <th width="20%" height="10px">Gametime</th>
+            <th width="20%" height="10px">League</th>
+            <th width="20%" height="10px">Home Team</th>
+            <th width="20%" height="10px">Away Team</th>
+            {% if user.is_authenticated %}
+            <th width="20%" height="10px">Your Bet</th>
+            {% endif %}
+        </tr>
+        {% for game in games %}
+            <tr>
+                <td height="30px">{{ game.gametime }}</td>
+                <td height="30px">{{ game.league.name }}</td>
+                <td height="30px">{{ game.homeTeam.name }}</td>
+                <td height="30px">{{ game.awayTeam.name }}</td>
+                {% if user.is_authenticated %}
+                <td height="30px"><form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="game_id" value="{{ game.pk }}">
+                    {{ form2.as_p }}
+                    <input type="submit" value="Submit">
+                </form></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

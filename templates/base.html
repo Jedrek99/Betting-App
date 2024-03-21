@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link href="{% static 'superview2.css' %}" rel="stylesheet">
+</head>
+<body class="container">
+{% if user.is_authenticated %}
+    Currently logged user: {{ user.username }}
+{% endif %}
+<div class="header">
+    <ul class="nav">
+        <li class="nav"><a href={% url 'home' %}>Homepage</a></li>
+        <li class="nav"><a href={% url 'teamlist' %}>Team List</a></li>
+        <li class="nav"><a href={% url 'leaguelist' %}>League List</a></li>
+        {% if user.is_staff == True %}
+        <li class="nav"><a href={% url 'addteam' %}>Add Team</a></li>
+        <li class="nav"><a href={% url 'addleague' %}>Add League</a></li>
+        <li class="nav"><a href={% url 'addcountry' %}>Add Country</a></li>
+        <li class="nav"><a href={% url 'addgame' %}>Add Game</a></li>
+        <li class="nav"><a href={% url 'addscore' %}>Add Score</a></li>
+        {% endif %}
+
+    </ul>
+    <ul class="nav">
+        {% if user.is_authenticated %}
+            <li class="nav"><a href="{% url 'userview' %}">Betting history</a></li>
+            <li class="nav"><a href="{% url 'logout' %}">Log out</a> </li>
+        {% else %}
+            <li class="nav"><a href="{% url 'createuser' %}">Create new user</a> </li>
+            <li class="nav"><a href="{% url 'login' %}">Log in</a> </li>
+        {% endif %}
+    </ul>
+</div>
+<div class="cont">{% block content %} {% endblock %}</div>
+<div class="footer">{{ data }} Python Course final project, created by Jędrzej Kępka </div>
+</body>
+</html>

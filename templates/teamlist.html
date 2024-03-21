@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+    </form> <br>
+    <ul>
+        {% for team in teams %}
+            - <a href='{% url 'editteam' team.pk %}'>{{ team.name }}</a> <a href='{% url 'deleteteam' team.pk %}'><button>X</button></a> <br>
+        {% endfor %}
+    </ul>
+{% endblock %}
